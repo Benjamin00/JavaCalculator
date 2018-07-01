@@ -99,54 +99,47 @@ class cFrame extends JFrame implements ActionListener {
 		//4 Function Calc Buttons
 		if (e.getSource() == bPanel.getAddButton())
 		{
+			if (!function.equals(""))
+			{
+				calcEquals();
+			}
 			temp = Double.parseDouble(iPanel.getAnswerButton().getText());
 			function = "add";
 			iPanel.newInput("");
 		}
 		if (e.getSource() == bPanel.getSubButton())
 		{
+			if (!function.equals(""))
+			{
+				calcEquals();
+			}
 			temp = Double.parseDouble(iPanel.getAnswerButton().getText());
 			function = "sub";
 			iPanel.newInput("");
 		}
 		if (e.getSource() == bPanel.getMultButton())
 		{
+			if (!function.equals(""))
+			{
+				calcEquals();
+			}
 			temp = Double.parseDouble(iPanel.getAnswerButton().getText());
 			function = "mult";
 			iPanel.newInput("");
 		}
 		if (e.getSource() == bPanel.getDivButton())
 		{
+			if (!function.equals(""))
+			{
+				calcEquals();
+			}
 			temp = Double.parseDouble(iPanel.getAnswerButton().getText());
 			function = "div";
 			iPanel.newInput("");
 		}
 		if (e.getSource() == bPanel.getEqualsButton())
 		{
-			if (function.equals("add"))
-			{
-				double temp2 = Double.parseDouble(iPanel.getAnswerButton().getText()) + temp;
-				String result = String.valueOf(temp2);
-				iPanel.newInput(result);
-			}
-			if (function.equals("sub"))
-			{
-				double temp2 = temp - Double.parseDouble(iPanel.getAnswerButton().getText());
-				String result = String.valueOf(temp2);
-				iPanel.newInput(result);
-			}
-			if (function.equals("mult"))
-			{
-				double temp2 = Double.parseDouble(iPanel.getAnswerButton().getText()) * temp;
-				String result = String.valueOf(temp2);
-				iPanel.newInput(result);
-			}
-			if (function.equals("div"))
-			{
-				double temp2 = temp / Double.parseDouble(iPanel.getAnswerButton().getText());
-				String result = String.valueOf(temp2);
-				iPanel.newInput(result);
-			}
+			calcEquals();
 		}
 		
 		//Aux Buttons
@@ -155,6 +148,34 @@ class cFrame extends JFrame implements ActionListener {
 			iPanel.newInput("");
 			temp = 0;
 			function = "";
+		}
+	}
+	
+	public void calcEquals()
+	{
+		if (function.equals("add"))
+		{
+			double temp2 = Double.parseDouble(iPanel.getAnswerButton().getText()) + temp;
+			String result = String.valueOf(temp2);
+			iPanel.newInput(result);
+		}
+		if (function.equals("sub"))
+		{
+			double temp2 = temp - Double.parseDouble(iPanel.getAnswerButton().getText());
+			String result = String.valueOf(temp2);
+			iPanel.newInput(result);
+		}
+		if (function.equals("mult"))
+		{
+			double temp2 = Double.parseDouble(iPanel.getAnswerButton().getText()) * temp;
+			String result = String.valueOf(temp2);
+			iPanel.newInput(result);
+		}
+		if (function.equals("div"))
+		{
+			double temp2 = temp / Double.parseDouble(iPanel.getAnswerButton().getText());
+			String result = String.valueOf(temp2);
+			iPanel.newInput(result);
 		}
 	}
 	
