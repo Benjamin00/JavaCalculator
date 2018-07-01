@@ -29,10 +29,60 @@ class cFrame extends JFrame implements ActionListener {
 		add(nPanel, BorderLayout.WEST);
 		add(bPanel, BorderLayout.SOUTH);
 		add(iPanel, BorderLayout.NORTH);
+		
+		bPanel.getZeroButton().addActionListener(this);
+		bPanel.getOneButton().addActionListener(this);
+		bPanel.getTwoButton().addActionListener(this);
+		bPanel.getThreeButton().addActionListener(this);
+		bPanel.getFourButton().addActionListener(this);
+		bPanel.getFiveButton().addActionListener(this);
+		bPanel.getSixButton().addActionListener(this);
+		bPanel.getSevenButton().addActionListener(this);
+		bPanel.getEightButton().addActionListener(this);
+		bPanel.getNineButton().addActionListener(this);
 
 	}
 	public void actionPerformed(ActionEvent e) {
-		
+		if (e.getSource() == bPanel.getZeroButton())
+		{
+			iPanel.input("0");
+		}
+		if (e.getSource() == bPanel.getOneButton())
+		{
+			iPanel.input("1");
+		}
+		if (e.getSource() == bPanel.getTwoButton())
+		{
+			iPanel.input("2");
+		}
+		if (e.getSource() == bPanel.getThreeButton())
+		{
+			iPanel.input("3");
+		}
+		if (e.getSource() == bPanel.getFourButton())
+		{
+			iPanel.input("4");
+		}
+		if (e.getSource() == bPanel.getFiveButton())
+		{
+			iPanel.input("5");
+		}
+		if (e.getSource() == bPanel.getSixButton())
+		{
+			iPanel.input("6");
+		}
+		if (e.getSource() == bPanel.getSevenButton())
+		{
+			iPanel.input("7");
+		}
+		if (e.getSource() == bPanel.getEightButton())
+		{
+			iPanel.input("8");
+		}
+		if (e.getSource() == bPanel.getNineButton())
+		{
+			iPanel.input("9");
+		}
 	}
 	
 }
@@ -173,13 +223,13 @@ class inputPanel extends JPanel{
 	
 	public inputPanel() {
 		//Input label for the raw input
-		inputLabel = new JLabel("1 * (2 * 3)", SwingConstants.RIGHT);
+		inputLabel = new JLabel("", SwingConstants.RIGHT);
 		Font font = new Font("TimesRoman",Font.BOLD,25);
 		inputLabel.setForeground(Color.GRAY);
 		inputLabel.setFont(font);
 		
 		//Answer label for the solution
-		ansLabel = new JLabel("6", SwingConstants.RIGHT);
+		ansLabel = new JLabel("", SwingConstants.RIGHT);
 		ansLabel.setFont(font);
 		
 		GridLayout iGL = new GridLayout(2,1,20,5);
@@ -190,6 +240,10 @@ class inputPanel extends JPanel{
 	}
 	public JLabel getInputButton() {return inputLabel;}
 	public JLabel getAnswerButton() {return ansLabel;}
-
+	
+	public void input(String s)
+	{
+		getAnswerButton().setText(getInputButton().getText() + s);
+	}
 }
 
