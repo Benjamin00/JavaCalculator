@@ -140,6 +140,7 @@ class cFrame extends JFrame implements ActionListener {
 		if (e.getSource() == bPanel.getEqualsButton())
 		{
 			calcEquals();
+			function = "";
 		}
 		
 		//Aux Buttons
