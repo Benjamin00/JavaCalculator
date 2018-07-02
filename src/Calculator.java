@@ -99,6 +99,7 @@ class cFrame extends JFrame implements ActionListener {
 		//4 Function Calc Buttons
 		if (e.getSource() == bPanel.getAddButton())
 		{
+			double temp2 = Double.parseDouble(iPanel.getAnswerButton().getText());
 			if (!function.equals(""))
 			{
 				calcEquals();
@@ -106,9 +107,11 @@ class cFrame extends JFrame implements ActionListener {
 			temp = Double.parseDouble(iPanel.getAnswerButton().getText());
 			function = "add";
 			iPanel.newInput("");
+			iPanel.totalInput(temp2 + " + ");
 		}
 		if (e.getSource() == bPanel.getSubButton())
 		{
+			double temp2 = Double.parseDouble(iPanel.getAnswerButton().getText());
 			if (!function.equals(""))
 			{
 				calcEquals();
@@ -116,9 +119,11 @@ class cFrame extends JFrame implements ActionListener {
 			temp = Double.parseDouble(iPanel.getAnswerButton().getText());
 			function = "sub";
 			iPanel.newInput("");
+			iPanel.totalInput(temp2 + " - ");
 		}
 		if (e.getSource() == bPanel.getMultButton())
 		{
+			double temp2 = Double.parseDouble(iPanel.getAnswerButton().getText());
 			if (!function.equals(""))
 			{
 				calcEquals();
@@ -126,9 +131,11 @@ class cFrame extends JFrame implements ActionListener {
 			temp = Double.parseDouble(iPanel.getAnswerButton().getText());
 			function = "mult";
 			iPanel.newInput("");
+			iPanel.totalInput(temp2 + " x ");
 		}
 		if (e.getSource() == bPanel.getDivButton())
 		{
+			double temp2 = Double.parseDouble(iPanel.getAnswerButton().getText());
 			if (!function.equals(""))
 			{
 				calcEquals();
@@ -136,11 +143,13 @@ class cFrame extends JFrame implements ActionListener {
 			temp = Double.parseDouble(iPanel.getAnswerButton().getText());
 			function = "div";
 			iPanel.newInput("");
+			iPanel.totalInput(temp2 + " ÷ ");
 		}
 		if (e.getSource() == bPanel.getEqualsButton())
 		{
 			calcEquals();
 			function = "";
+			iPanel.newTotalInput("");
 		}
 		
 		//Aux Buttons
@@ -336,14 +345,23 @@ class inputPanel extends JPanel{
 	public JLabel getInputButton() {return inputLabel;}
 	public JLabel getAnswerButton() {return ansLabel;}
 	
-	public void input(String s)
+	public void input(String s)								//Adds to the answerLabel
 	{
 		String temp = getAnswerButton().getText();
 		getAnswerButton().setText(temp + s);
 	}
-	public void newInput(String s)
+	public void newInput(String s)							//Replaces the answerLabel
 	{
 		getAnswerButton().setText(s);
+	}
+	public void totalInput(String s)						//Adds to the inputLabel
+	{
+		String temp = getInputButton().getText();
+		getInputButton().setText(temp + s);
+	}
+	public void newTotalInput(String s)						//Replaces inputLabel
+	{
+		getInputButton().setText(s);
 	}
 }
 
