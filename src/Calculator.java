@@ -23,6 +23,8 @@ class cFrame extends JFrame implements ActionListener {
 	
 	private String function = "";
 	private double temp;
+	private String result = "";
+	private int isFirstInt = 1;
 	
 	public cFrame() {
 		bPanel = new buttonPanel();
@@ -57,42 +59,92 @@ class cFrame extends JFrame implements ActionListener {
 		//Number Buttons
 		if (e.getSource() == bPanel.getZeroButton())
 		{
+			if (isFirstInt == 1)
+			{
+				iPanel.newInput("");
+				isFirstInt = 0;
+			}
 			iPanel.input("0");
 		}
 		if (e.getSource() == bPanel.getOneButton())
 		{
+			if (isFirstInt == 1)
+			{
+				iPanel.newInput("");
+				isFirstInt = 0;
+			}
 			iPanel.input("1");
 		}
 		if (e.getSource() == bPanel.getTwoButton())
 		{
+			if (isFirstInt == 1)
+			{
+				iPanel.newInput("");
+				isFirstInt = 0;
+			}
 			iPanel.input("2");
 		}
 		if (e.getSource() == bPanel.getThreeButton())
 		{
+			if (isFirstInt == 1)
+			{
+				iPanel.newInput("");
+				isFirstInt = 0;
+			}
 			iPanel.input("3");
 		}
 		if (e.getSource() == bPanel.getFourButton())
 		{
+			if (isFirstInt == 1)
+			{
+				iPanel.newInput("");
+				isFirstInt = 0;
+			}
 			iPanel.input("4");
 		}
 		if (e.getSource() == bPanel.getFiveButton())
 		{
+			if (isFirstInt == 1)
+			{
+				iPanel.newInput("");
+				isFirstInt = 0;
+			}
 			iPanel.input("5");
 		}
 		if (e.getSource() == bPanel.getSixButton())
 		{
+			if (isFirstInt == 1)
+			{
+				iPanel.newInput("");
+				isFirstInt = 0;
+			}
 			iPanel.input("6");
 		}
 		if (e.getSource() == bPanel.getSevenButton())
 		{
+			if (isFirstInt == 1)
+			{
+				iPanel.newInput("");
+				isFirstInt = 0;
+			}
 			iPanel.input("7");
 		}
 		if (e.getSource() == bPanel.getEightButton())
 		{
+			if (isFirstInt == 1)
+			{
+				iPanel.newInput("");
+				isFirstInt = 0;
+			}
 			iPanel.input("8");
 		}
 		if (e.getSource() == bPanel.getNineButton())
 		{
+			if (isFirstInt == 1)
+			{
+				iPanel.newInput("");
+				isFirstInt = 0;
+			}
 			iPanel.input("9");
 		}
 		
@@ -106,8 +158,9 @@ class cFrame extends JFrame implements ActionListener {
 			}
 			temp = Double.parseDouble(iPanel.getAnswerButton().getText());
 			function = "add";
-			iPanel.newInput("");
+			iPanel.newInput(result);
 			iPanel.totalInput(temp2 + " + ");
+			isFirstInt = 1;
 		}
 		if (e.getSource() == bPanel.getSubButton())
 		{
@@ -118,8 +171,9 @@ class cFrame extends JFrame implements ActionListener {
 			}
 			temp = Double.parseDouble(iPanel.getAnswerButton().getText());
 			function = "sub";
-			iPanel.newInput("");
+			iPanel.newInput(result);
 			iPanel.totalInput(temp2 + " - ");
+			isFirstInt = 1;
 		}
 		if (e.getSource() == bPanel.getMultButton())
 		{
@@ -130,8 +184,9 @@ class cFrame extends JFrame implements ActionListener {
 			}
 			temp = Double.parseDouble(iPanel.getAnswerButton().getText());
 			function = "mult";
-			iPanel.newInput("");
+			iPanel.newInput(result);
 			iPanel.totalInput(temp2 + " x ");
+			isFirstInt = 1;
 		}
 		if (e.getSource() == bPanel.getDivButton())
 		{
@@ -142,14 +197,16 @@ class cFrame extends JFrame implements ActionListener {
 			}
 			temp = Double.parseDouble(iPanel.getAnswerButton().getText());
 			function = "div";
-			iPanel.newInput("");
+			iPanel.newInput(result);
 			iPanel.totalInput(temp2 + " ÷ ");
+			isFirstInt = 1;
 		}
 		if (e.getSource() == bPanel.getEqualsButton())
 		{
 			calcEquals();
 			function = "";
 			iPanel.newTotalInput("");
+			isFirstInt = 1;
 		}
 		
 		//Aux Buttons
@@ -158,6 +215,7 @@ class cFrame extends JFrame implements ActionListener {
 			iPanel.newInput("");
 			temp = 0;
 			function = "";
+			iPanel.newTotalInput("");
 		}
 	}
 	
@@ -166,25 +224,25 @@ class cFrame extends JFrame implements ActionListener {
 		if (function.equals("add"))
 		{
 			double temp2 = Double.parseDouble(iPanel.getAnswerButton().getText()) + temp;
-			String result = String.valueOf(temp2);
+			result = String.valueOf(temp2);
 			iPanel.newInput(result);
 		}
 		if (function.equals("sub"))
 		{
 			double temp2 = temp - Double.parseDouble(iPanel.getAnswerButton().getText());
-			String result = String.valueOf(temp2);
+			result = String.valueOf(temp2);
 			iPanel.newInput(result);
 		}
 		if (function.equals("mult"))
 		{
 			double temp2 = Double.parseDouble(iPanel.getAnswerButton().getText()) * temp;
-			String result = String.valueOf(temp2);
+			result = String.valueOf(temp2);
 			iPanel.newInput(result);
 		}
 		if (function.equals("div"))
 		{
 			double temp2 = temp / Double.parseDouble(iPanel.getAnswerButton().getText());
-			String result = String.valueOf(temp2);
+			result = String.valueOf(temp2);
 			iPanel.newInput(result);
 		}
 	}
