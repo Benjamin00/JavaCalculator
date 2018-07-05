@@ -45,7 +45,6 @@ class cFrame extends JFrame implements ActionListener {
 		bPanel.getSevenButton().addActionListener(this);
 		bPanel.getEightButton().addActionListener(this);
 		bPanel.getNineButton().addActionListener(this);
-		bPanel.getDotButton().addActionListener(this);
 		
 		bPanel.getAddButton().addActionListener(this);
 		bPanel.getSubButton().addActionListener(this);
@@ -149,15 +148,6 @@ class cFrame extends JFrame implements ActionListener {
 			}
 			iPanel.input("9");
 		}
-		if (e.getSource() == bPanel.getDotButton())
-		{
-			if (isFirstInt == 1)
-			{
-				iPanel.newInput("0");
-				isFirstInt = 0;
-			}
-			iPanel.input(".");
-		}
 		
 		//4 Function Calc Buttons
 		if (e.getSource() == bPanel.getAddButton())
@@ -227,11 +217,12 @@ class cFrame extends JFrame implements ActionListener {
 			temp = 0;
 			function = "";
 			iPanel.newTotalInput("");
+			result = "";
 		}
 		if (e.getSource() == bPanel.getNegButton())
 		{
-			String temp = iPanel.getAnswerButton().getText();
-			iPanel.newInput("-" + temp);
+			String temp2 = iPanel.getAnswerButton().getText();
+			iPanel.newInput("-" + temp2);
 		}
 	}
 	
