@@ -32,7 +32,9 @@ class cFrame extends JFrame implements ActionListener {
 
 	}
 	public void actionPerformed(ActionEvent e) {
-		
+		if (e.getSource()==bPanel.getAddButton()) {
+			
+		}
 	}
 	
 }
@@ -92,6 +94,7 @@ class buttonPanel extends JPanel{
 											cBut, dBut, fourBut, fiveBut, sixBut, subBut, 
 											eBut, fBut, oneBut, twoBut, threeBut, addBut, 
 											leftPBut, rightPBut, negBut, zeroBut, dotBut, equalsBut};
+		
 		
 		//add all the buttons to the panel
 		for(JButton i:buttons) {
