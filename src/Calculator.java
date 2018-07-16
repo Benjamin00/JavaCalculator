@@ -22,9 +22,10 @@ class cFrame extends JFrame implements ActionListener {
 	private inputPanel iPanel;
 	
 	private String function = "";
-	private double temp;
+	private int temp;
 	private String result = "";
 	private int isFirstInt = 1;
+	private String datatype = "DEC";
 	
 	public cFrame() {
 		bPanel = new buttonPanel();
@@ -54,7 +55,12 @@ class cFrame extends JFrame implements ActionListener {
 		
 		bPanel.getClrButton().addActionListener(this);
 		bPanel.getNegButton().addActionListener(this);
-
+		
+		//Conversion
+		nPanel.getHexButton().addActionListener(this);
+		nPanel.getDecButton().addActionListener(this);
+		nPanel.getOctButton().addActionListener(this);
+		nPanel.getBinButton().addActionListener(this);
 	}
 	public void actionPerformed(ActionEvent e) {
 		//Number Buttons
@@ -148,16 +154,70 @@ class cFrame extends JFrame implements ActionListener {
 			}
 			iPanel.input("9");
 		}
+		if (e.getSource() == bPanel.getAButton())
+		{
+			if (isFirstInt == 1)
+			{
+				iPanel.newInput("");
+				isFirstInt = 0;
+			}
+			iPanel.input("A");
+		}
+		if (e.getSource() == bPanel.getBButton())
+		{
+			if (isFirstInt == 1)
+			{
+				iPanel.newInput("");
+				isFirstInt = 0;
+			}
+			iPanel.input("B");
+		}
+		if (e.getSource() == bPanel.getCButton())
+		{
+			if (isFirstInt == 1)
+			{
+				iPanel.newInput("");
+				isFirstInt = 0;
+			}
+			iPanel.input("C");
+		}
+		if (e.getSource() == bPanel.getDButton())
+		{
+			if (isFirstInt == 1)
+			{
+				iPanel.newInput("");
+				isFirstInt = 0;
+			}
+			iPanel.input("D");
+		}
+		if (e.getSource() == bPanel.getEButton())
+		{
+			if (isFirstInt == 1)
+			{
+				iPanel.newInput("");
+				isFirstInt = 0;
+			}
+			iPanel.input("E");
+		}
+		if (e.getSource() == bPanel.getFButton())
+		{
+			if (isFirstInt == 1)
+			{
+				iPanel.newInput("");
+				isFirstInt = 0;
+			}
+			iPanel.input("F");
+		}
 		
 		//4 Function Calc Buttons
 		if (e.getSource() == bPanel.getAddButton())
 		{
-			double temp2 = Double.parseDouble(iPanel.getAnswerButton().getText());
+			int temp2 = Integer.parseInt(iPanel.getAnswerButton().getText());
 			if (!function.equals(""))
 			{
 				calcEquals();
 			}
-			temp = Double.parseDouble(iPanel.getAnswerButton().getText());
+			temp = Integer.parseInt(iPanel.getAnswerButton().getText());
 			function = "add";
 			iPanel.newInput(result);
 			iPanel.totalInput(temp2 + " + ");
@@ -165,12 +225,12 @@ class cFrame extends JFrame implements ActionListener {
 		}
 		if (e.getSource() == bPanel.getSubButton())
 		{
-			double temp2 = Double.parseDouble(iPanel.getAnswerButton().getText());
+			int temp2 = Integer.parseInt(iPanel.getAnswerButton().getText());
 			if (!function.equals(""))
 			{
 				calcEquals();
 			}
-			temp = Double.parseDouble(iPanel.getAnswerButton().getText());
+			temp = Integer.parseInt(iPanel.getAnswerButton().getText());
 			function = "sub";
 			iPanel.newInput(result);
 			iPanel.totalInput(temp2 + " - ");
@@ -178,12 +238,12 @@ class cFrame extends JFrame implements ActionListener {
 		}
 		if (e.getSource() == bPanel.getMultButton())
 		{
-			double temp2 = Double.parseDouble(iPanel.getAnswerButton().getText());
+			int temp2 = Integer.parseInt(iPanel.getAnswerButton().getText());
 			if (!function.equals(""))
 			{
 				calcEquals();
 			}
-			temp = Double.parseDouble(iPanel.getAnswerButton().getText());
+			temp = Integer.parseInt(iPanel.getAnswerButton().getText());
 			function = "mult";
 			iPanel.newInput(result);
 			iPanel.totalInput(temp2 + " x ");
@@ -191,12 +251,12 @@ class cFrame extends JFrame implements ActionListener {
 		}
 		if (e.getSource() == bPanel.getDivButton())
 		{
-			double temp2 = Double.parseDouble(iPanel.getAnswerButton().getText());
+			int temp2 = Integer.parseInt(iPanel.getAnswerButton().getText());
 			if (!function.equals(""))
 			{
 				calcEquals();
 			}
-			temp = Double.parseDouble(iPanel.getAnswerButton().getText());
+			temp = Integer.parseInt(iPanel.getAnswerButton().getText());
 			function = "div";
 			iPanel.newInput(result);
 			iPanel.totalInput(temp2 + " ÷ ");
@@ -213,7 +273,7 @@ class cFrame extends JFrame implements ActionListener {
 		//Aux Buttons
 		if (e.getSource() == bPanel.getClrButton()) 
 		{
-			iPanel.newInput("");
+			iPanel.newInput("0");
 			temp = 0;
 			function = "";
 			iPanel.newTotalInput("");
@@ -222,33 +282,177 @@ class cFrame extends JFrame implements ActionListener {
 		if (e.getSource() == bPanel.getNegButton())
 		{
 			String temp2 = iPanel.getAnswerButton().getText();
-			iPanel.newInput("-" + temp2);
+			if (String.valueOf(temp2.charAt(0))=="-")
+			{
+				iPanel.newInput(temp2.substring(1));
+			}
+			else {
+				System.out.print("First char: " + String.valueOf(temp2.charAt(0)));
+				iPanel.newInput("-" + temp2);
+			}
+			
 		}
+		if (e.getSource() == nPanel.getHexButton()) {
+			nPanel.setHexActive();
+			String newVal = "";
+			if(iPanel.getAnswerButton().getText() == "") {
+				
+			}
+			else if(datatype == "DEC") {
+				newVal = Integer.toHexString(Integer.parseInt(iPanel.getAnswerButton().getText()));
+			}
+			else if(datatype == "OCT") {
+				int decnum = Integer.parseInt(iPanel.getAnswerButton().getText(), 8);
+				newVal = Integer.toHexString(decnum);
+			}
+			else if(datatype == "BIN") {
+				int binnum = Integer.parseInt(iPanel.getAnswerButton().getText(), 2);
+				newVal = Integer.toHexString(binnum);
+			}
+			else if(datatype == "HEX") {
+				
+			}
+			else {
+				System.out.print("Something went wrong in the getHexButton function");
+			}
+			//hex = hex.substring(2);
+			//nPanel.
+			bPanel.setHexButtons();
+			newVal.toUpperCase();
+			System.out.print("Datatype before: " + datatype);
+			setDataType("HEX");
+			System.out.print("Datatype after: " + datatype);
+			iPanel.newInput(newVal);
+		}
+		if (e.getSource() == nPanel.getDecButton()) {
+			nPanel.setDecActive();
+			String newVal = "";
+			if(iPanel.getAnswerButton().getText() == "") {
+				
+			}
+			else if(datatype == "DEC") {
+
+			}
+			else if(datatype == "OCT") {
+				int decnum = Integer.parseInt(iPanel.getAnswerButton().getText(), 8);
+				newVal = Integer.toString(decnum);
+			}
+			else if(datatype == "BIN") {
+				int binnum = Integer.parseInt(iPanel.getAnswerButton().getText(), 2);
+				newVal = Integer.toString(binnum);
+			}
+			else if(datatype == "HEX") {
+				System.out.println("Datatype in hex: " + datatype);
+				int hexnum = (int)Long.parseLong(iPanel.getAnswerButton().getText(), 16);
+				newVal = Integer.toString(hexnum);
+			}
+			else {
+				System.out.println("Something went wrong in the getHexButton function");
+			}
+			bPanel.setDecButtons();
+			System.out.println("Datatype before: " + datatype);
+			setDataType("DEC");
+			System.out.println("Datatype after: " + datatype);
+			iPanel.newInput(newVal);
+		}
+		if (e.getSource() == nPanel.getOctButton()) {
+			nPanel.setOctActive();
+			nPanel.getOctLabel().setBackground(Color.BLUE);
+			String newVal = "";
+			if(iPanel.getAnswerButton().getText() == "") {
+				
+			}
+			else if(datatype == "DEC") {
+				newVal = Integer.toOctalString(Integer.parseInt(iPanel.getAnswerButton().getText()));
+			}
+			else if(datatype == "OCT") {
+				
+			}
+			else if(datatype == "BIN") {
+				int binnum = Integer.parseInt(iPanel.getAnswerButton().getText(), 2);
+				newVal = Integer.toOctalString(binnum);
+			}
+			else if(datatype == "HEX") {
+				int hexnum = Integer.parseInt(iPanel.getAnswerButton().getText(), 16);
+				newVal = Integer.toOctalString(hexnum);
+			}
+			else {
+				System.out.print("Something went wrong in the getHexButton function");
+			}
+			
+			//hex = hex.substring(2);
+			//nPanel.
+			bPanel.setOctButtons();
+			System.out.print("Datatype before: " + datatype);
+			newVal.toUpperCase();
+			setDataType("OCT");
+			System.out.print("Datatype after: " + datatype);
+			iPanel.newInput(newVal);
+			
+		}
+		if (e.getSource() == nPanel.getBinButton()) {
+			nPanel.setBinActive();
+			String newVal = "";
+			
+			if(iPanel.getAnswerButton().getText() == "") {
+				
+			}
+			else if(datatype == "DEC") {
+				newVal = Integer.toBinaryString(Integer.parseInt(iPanel.getAnswerButton().getText()));
+			}
+			else if(datatype == "OCT") {
+				int decnum = Integer.parseInt(iPanel.getAnswerButton().getText(), 8);
+				newVal = Integer.toBinaryString(decnum);
+			}
+			else if(datatype == "BIN") {
+				
+			}
+			else if(datatype == "HEX") {
+				int hexnum = Integer.parseInt(iPanel.getAnswerButton().getText(), 16);
+				newVal = Integer.toBinaryString(hexnum);
+			}
+			else {
+				System.out.print("Something went wrong in the getHexButton function");
+			}
+			
+			//hex = hex.substring(2);
+			//nPanel.
+			bPanel.setBinaryButtons();
+			System.out.print("Datatype before: " + datatype);
+			setDataType("BIN");
+			System.out.print("Datatype after: " + datatype);
+			iPanel.newInput(newVal);
+		}
+
 	}
+	public void setDataType(String type) {
+		datatype = type;
+	}
+
 	
 	public void calcEquals()
 	{
 		if (function.equals("add"))
 		{
-			double temp2 = Double.parseDouble(iPanel.getAnswerButton().getText()) + temp;
+			int temp2 = Integer.parseInt(iPanel.getAnswerButton().getText()) + temp;
 			result = String.valueOf(temp2);
 			iPanel.newInput(result);
 		}
 		if (function.equals("sub"))
 		{
-			double temp2 = temp - Double.parseDouble(iPanel.getAnswerButton().getText());
+			int temp2 = temp - Integer.parseInt(iPanel.getAnswerButton().getText());
 			result = String.valueOf(temp2);
 			iPanel.newInput(result);
 		}
 		if (function.equals("mult"))
 		{
-			double temp2 = Double.parseDouble(iPanel.getAnswerButton().getText()) * temp;
+			int temp2 = Integer.parseInt(iPanel.getAnswerButton().getText()) * temp;
 			result = String.valueOf(temp2);
 			iPanel.newInput(result);
 		}
 		if (function.equals("div"))
 		{
-			double temp2 = temp / Double.parseDouble(iPanel.getAnswerButton().getText());
+			int temp2 = temp / Integer.parseInt(iPanel.getAnswerButton().getText());
 			result = String.valueOf(temp2);
 			iPanel.newInput(result);
 		}
@@ -294,7 +498,7 @@ class buttonPanel extends JPanel{
 		upBut = new JButton("↑");
 		ceBut = new JButton("Ce");
 		clrBut = new JButton("C");
-		delBut = new JButton("<-");
+		delBut = new JButton("<");
 		//Characters
 		aBut = new JButton("A");
 		bBut = new JButton("B");
@@ -313,8 +517,61 @@ class buttonPanel extends JPanel{
 											leftPBut, rightPBut, negBut, zeroBut, dotBut, equalsBut};
 		
 		//add all the buttons to the panel
+		for(int i = 0; i<7;i++) {
+			buttons[i].setEnabled(false);
+		}
+		setDecButtons();
+		dotBut.setEnabled(false);
 		for(JButton i:buttons) {
 			add(i);			
+		}
+	}
+	public void disableAllNumButtons() {
+		JButton[] dbuttons = new JButton[] {
+				aBut, bBut, sevenBut, eightBut, nineBut,
+				cBut, dBut, fourBut, fiveBut, sixBut, 
+				eBut, fBut, oneBut, twoBut, threeBut, 
+				zeroBut};
+		for(JButton i:dbuttons) {
+			i.setEnabled(false);
+		}
+	}
+	public void setBinaryButtons() {
+		disableAllNumButtons();
+		oneBut.setEnabled(true);
+		zeroBut.setEnabled(true);
+	}
+	public void setHexButtons() {
+		disableAllNumButtons();
+		JButton[] hexbuttons = new JButton[] {
+				aBut, bBut, sevenBut, eightBut, nineBut, 
+				cBut, dBut, fourBut, fiveBut, sixBut,
+				eBut, fBut, oneBut, twoBut, threeBut, 
+				zeroBut};
+		for(JButton i:hexbuttons) {
+			i.setEnabled(true);
+		}
+	}
+	public void setOctButtons() {
+		disableAllNumButtons();
+		JButton[] octbuttons = new JButton[] {
+				sevenBut,  
+				fourBut, fiveBut, sixBut, 
+				oneBut, twoBut, threeBut, 
+				zeroBut};
+		for(JButton i:octbuttons) {
+			i.setEnabled(true);
+		}
+	}
+	public void setDecButtons() {
+		disableAllNumButtons();
+		JButton[] hexbuttons = new JButton[] {
+				sevenBut, eightBut, nineBut, 
+				fourBut, fiveBut, sixBut,
+				oneBut, twoBut, threeBut, 
+				zeroBut};
+		for(JButton i:hexbuttons) {
+			i.setEnabled(true);
 		}
 	}
 	//Symbols
@@ -360,37 +617,98 @@ class buttonPanel extends JPanel{
 	
 }
 class numPanel extends JPanel{
-	public JLabel hexLabel, decLabel, octLabel, binLabel;
+	public JButton hexButton, decButton, octButton, binButton;
 	public JLabel hexValue, decValue, octValue, binValue;
 	
 	public numPanel() {
-		hexLabel = new JLabel("HEX");
+		hexButton = new JButton("HEX");
 		hexValue = new JLabel("0");
-		decLabel = new JLabel("DEC");
+		decButton = new JButton("DEC");
 		decValue = new JLabel("0");
-		octLabel = new JLabel("OCT");
+		octButton = new JButton("OCT");
 		octValue = new JLabel("0");
-		binLabel = new JLabel("BIN");
+		binButton = new JButton("BIN");
 		binValue = new JLabel("0");
 		
 		GridLayout numGL = new GridLayout(6,2,5,5);
 		setLayout(numGL);
 		
-		add(hexLabel);
+		add(hexButton);
 		add(hexValue);
-		add(decLabel);
+		add(decButton);
 		add(decValue);
-		add(octLabel);
+		add(octButton);
 		add(octValue);
-		add(binLabel);
+		add(binButton);
 		add(binValue);
+	}
+	public void setHexLabel(String s) {
+		getHexButton().setText(s);
+	}
+	public void setDecLabel(String s) {
+		getDecButton().setText(s);
+	}
+	public void setOctLabel(String s) {
+		getOctButton().setText(s);
+	}
+	public void setBinLabel(String s) {
+		getBinButton().setText(s);
+	}
+	public void setAllLabels(String value, String type) {
+		if(type == "HEX") {
+			setHexLabel(value);
+		}
+		else if(type == "DEC") {
+			
+		}
+		else if(type == "OCT") {
+		
+		}
+		else if(type == "BIN") {
+			
+		}
+		else {
+			System.out.println("Invalid type for label setting");
+		}
+	}
+	public JLabel getHexLabel() {return hexValue;}
+	public JLabel getDecLabel() {return decValue;}
+	public JLabel getOctLabel() {return octValue;}
+	public JLabel getBinLabel() {return binValue;}
+	public JButton getHexButton() {return hexButton;}
+	public JButton getDecButton() {return decButton;}
+	public JButton getOctButton() {return octButton;}
+	public JButton getBinButton() {return binButton;}
+	public void setHexActive() {
+		hexValue.setForeground(Color.BLUE);
+		decValue.setForeground(null);
+		octValue.setForeground(null);
+		binValue.setForeground(null);
+	}
+	public void setDecActive() {
+		hexValue.setForeground(null);
+		decValue.setForeground(Color.BLUE);
+		octValue.setForeground(null);
+		binValue.setForeground(null);
+	}
+	public void setOctActive() {
+		hexValue.setForeground(null);
+		decValue.setForeground(null);
+		octValue.setForeground(Color.BLUE);
+		binValue.setForeground(null);
+	}
+	public void setBinActive() {
+		hexValue.setForeground(null);
+		decValue.setForeground(null);
+		octValue.setForeground(null);
+		binValue.setForeground(Color.BLUE);
 	}
 }
 class inputPanel extends JPanel{
 	public JLabel inputLabel;
 	public JLabel ansLabel;
 	
-	public inputPanel() {
+ 	public inputPanel() {
 		//Input label for the raw input
 		inputLabel = new JLabel("", SwingConstants.RIGHT);
 		Font font = new Font("TimesRoman",Font.BOLD,25);
@@ -398,7 +716,7 @@ class inputPanel extends JPanel{
 		inputLabel.setFont(font);
 		
 		//Answer label for the solution
-		ansLabel = new JLabel("", SwingConstants.RIGHT);
+		ansLabel = new JLabel("0", SwingConstants.RIGHT);
 		ansLabel.setFont(font);
 		
 		GridLayout iGL = new GridLayout(2,1,20,5);
