@@ -46,6 +46,12 @@ class cFrame extends JFrame implements ActionListener {
 		bPanel.getSevenButton().addActionListener(this);
 		bPanel.getEightButton().addActionListener(this);
 		bPanel.getNineButton().addActionListener(this);
+		bPanel.getAButton().addActionListener(this);
+		bPanel.getBButton().addActionListener(this);
+		bPanel.getCButton().addActionListener(this);
+		bPanel.getDButton().addActionListener(this);
+		bPanel.getEButton().addActionListener(this);
+		bPanel.getFButton().addActionListener(this);
 		
 		bPanel.getAddButton().addActionListener(this);
 		bPanel.getSubButton().addActionListener(this);
@@ -54,6 +60,7 @@ class cFrame extends JFrame implements ActionListener {
 		bPanel.getEqualsButton().addActionListener(this);
 		
 		bPanel.getClrButton().addActionListener(this);
+		bPanel.getCeButton().addActionListener(this);
 		bPanel.getNegButton().addActionListener(this);
 		
 		//Conversion
@@ -278,6 +285,12 @@ class cFrame extends JFrame implements ActionListener {
 			function = "";
 			iPanel.newTotalInput("");
 			result = "";
+			isFirstInt = 1;
+		}
+		if (e.getSource() == bPanel.getCeButton())
+		{
+			iPanel.newInput("0");
+			isFirstInt = 1;
 		}
 		if (e.getSource() == bPanel.getNegButton())
 		{
@@ -290,8 +303,9 @@ class cFrame extends JFrame implements ActionListener {
 				System.out.print("First char: " + String.valueOf(temp2.charAt(0)));
 				iPanel.newInput("-" + temp2);
 			}
-			
 		}
+
+		//Conversion Buttons
 		if (e.getSource() == nPanel.getHexButton()) {
 			nPanel.setHexActive();
 			String newVal = "";
@@ -318,7 +332,7 @@ class cFrame extends JFrame implements ActionListener {
 			//hex = hex.substring(2);
 			//nPanel.
 			bPanel.setHexButtons();
-			newVal.toUpperCase();
+			newVal = newVal.toUpperCase();
 			System.out.print("Datatype before: " + datatype);
 			setDataType("HEX");
 			System.out.print("Datatype after: " + datatype);
