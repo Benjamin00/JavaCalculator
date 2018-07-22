@@ -454,7 +454,69 @@ class cFrame extends JFrame implements ActionListener {
 			System.out.print("Datatype after: " + datatype);
 			iPanel.newInput(newVal);
 		}
-
+		updateLabels();
+	}
+	public void updateLabels() {
+		if(datatype == "HEX") {
+			if(iPanel.getAnswerButton().getText() == "") {
+				nPanel.hexValue.setText("0");
+				nPanel.decValue.setText("0");
+				nPanel.octValue.setText("0");
+				nPanel.binValue.setText("0");
+			}
+			else {
+			int hexnum = Integer.parseInt(iPanel.getAnswerButton().getText(), 16);
+			nPanel.hexValue.setText(Integer.toHexString(hexnum));
+			nPanel.decValue.setText(Integer.toString(hexnum));
+			nPanel.octValue.setText(Integer.toOctalString(hexnum));
+			nPanel.binValue.setText(Integer.toBinaryString(hexnum));
+			}
+		}
+		if(datatype == "DEC") {
+			if(iPanel.getAnswerButton().getText() == "") {
+				nPanel.hexValue.setText("0");
+				nPanel.decValue.setText("0");
+				nPanel.octValue.setText("0");
+				nPanel.binValue.setText("0");
+			}
+			else {
+			int decnum = Integer.parseInt(iPanel.getAnswerButton().getText(), 10);
+			nPanel.hexValue.setText(Integer.toHexString(decnum));
+			nPanel.decValue.setText(Integer.toString(decnum));
+			nPanel.octValue.setText(Integer.toOctalString(decnum));
+			nPanel.binValue.setText(Integer.toBinaryString(decnum));
+			}
+		}
+		if(datatype == "OCT") {
+			if(iPanel.getAnswerButton().getText() == "") {
+				nPanel.hexValue.setText("0");
+				nPanel.decValue.setText("0");
+				nPanel.octValue.setText("0");
+				nPanel.binValue.setText("0");
+			}
+			else {
+			int octnum = Integer.parseInt(iPanel.getAnswerButton().getText(), 8);
+			nPanel.hexValue.setText(Integer.toHexString(octnum));
+			nPanel.decValue.setText(Integer.toString(octnum));
+			nPanel.octValue.setText(Integer.toOctalString(octnum));
+			nPanel.binValue.setText(Integer.toBinaryString(octnum));
+			}
+		}
+		if(datatype == "BIN") {
+			if(iPanel.getAnswerButton().getText() == "") {
+				nPanel.hexValue.setText("0");
+				nPanel.decValue.setText("0");
+				nPanel.octValue.setText("0");
+				nPanel.binValue.setText("0");
+			}
+			else {
+			int binnum = Integer.parseInt(iPanel.getAnswerButton().getText(), 2);
+			nPanel.hexValue.setText(Integer.toHexString(binnum));
+			nPanel.decValue.setText(Integer.toString(binnum));
+			nPanel.octValue.setText(Integer.toOctalString(binnum));
+			nPanel.binValue.setText(Integer.toBinaryString(binnum));
+			}
+		}
 	}
 	public void setDataType(String type) {
 		datatype = type;
