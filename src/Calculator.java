@@ -36,6 +36,7 @@ class cFrame extends JFrame implements ActionListener {
 		add(bPanel, BorderLayout.SOUTH);
 		add(iPanel, BorderLayout.NORTH);
 		
+		//Numbers
 		bPanel.getZeroButton().addActionListener(this);
 		bPanel.getOneButton().addActionListener(this);
 		bPanel.getTwoButton().addActionListener(this);
@@ -53,15 +54,18 @@ class cFrame extends JFrame implements ActionListener {
 		bPanel.getEButton().addActionListener(this);
 		bPanel.getFButton().addActionListener(this);
 		
+		//4 Function
 		bPanel.getAddButton().addActionListener(this);
 		bPanel.getSubButton().addActionListener(this);
 		bPanel.getMultButton().addActionListener(this);
 		bPanel.getDivButton().addActionListener(this);
 		bPanel.getEqualsButton().addActionListener(this);
 		
+		//Utility
 		bPanel.getClrButton().addActionListener(this);
 		bPanel.getCeButton().addActionListener(this);
 		bPanel.getNegButton().addActionListener(this);
+		bPanel.getModButton().addActionListener(this);
 		
 		//Conversion
 		nPanel.getHexButton().addActionListener(this);
@@ -304,6 +308,19 @@ class cFrame extends JFrame implements ActionListener {
 				iPanel.newInput("-" + temp2);
 			}
 		}
+		if (e.getSource() == bPanel.getModButton())
+		{
+			int temp2 = Integer.parseInt(iPanel.getAnswerButton().getText());
+			if (!function.equals(""))
+			{
+				calcEquals();
+			}
+			temp = Integer.parseInt(iPanel.getAnswerButton().getText());
+			function = "mod";
+			iPanel.newInput(result);
+			iPanel.totalInput(temp2 + " mod ");
+			isFirstInt = 1;
+		}
 
 		//Conversion Buttons
 		if (e.getSource() == nPanel.getHexButton()) {
@@ -467,6 +484,12 @@ class cFrame extends JFrame implements ActionListener {
 		if (function.equals("div"))
 		{
 			int temp2 = temp / Integer.parseInt(iPanel.getAnswerButton().getText());
+			result = String.valueOf(temp2);
+			iPanel.newInput(result);
+		}
+		if (function.equals("mod"))
+		{
+			int temp2 = temp % Integer.parseInt(iPanel.getAnswerButton().getText());
 			result = String.valueOf(temp2);
 			iPanel.newInput(result);
 		}
