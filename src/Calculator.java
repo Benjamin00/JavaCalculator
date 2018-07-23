@@ -287,13 +287,10 @@ class cFrame extends JFrame implements ActionListener {
 		}
 		if (e.getSource() == bPanel.getEqualsButton())
 		{
-			//calcEquals(datatype);
+			calcEquals(datatype);
 			function = "";
-			//iPanel.newTotalInput("");
+			iPanel.newTotalInput(" ");
 			isFirstInt = 1;
-			if(datatype == "DEC") {
-				iPanel.newInput(Integer.toString(parseString(iPanel.getInputButton().getText()+iPanel.getAnswerButton().getText())));
-			}
 		}
 		
 		//Aux Buttons
@@ -302,7 +299,7 @@ class cFrame extends JFrame implements ActionListener {
 			iPanel.newInput("0");
 			temp = 0;
 			function = "";
-			iPanel.newTotalInput("");
+			iPanel.newTotalInput(" ");
 			result = "";
 			isFirstInt = 1;
 		}
@@ -314,7 +311,7 @@ class cFrame extends JFrame implements ActionListener {
 		if (e.getSource() == bPanel.getNegButton())
 		{
 			String temp2 = iPanel.getAnswerButton().getText();
-			if (String.valueOf(temp2.charAt(0))=="-")
+			if (temp2.charAt(0) == '-')
 			{
 				iPanel.newInput(temp2.substring(1));
 			}
@@ -345,13 +342,12 @@ class cFrame extends JFrame implements ActionListener {
 			iPanel.totalInput("(");
 		}
 		if (e.getSource() == bPanel.getRightPButton()){
-			if (isFirstInt == 1)
-			{
-				iPanel.newInput("");
-				isFirstInt = 0;
-			}
+			iPanel.totalInput(iPanel.getAnswerButton().getText());
+			isFirstInt = 0;
+			iPanel.newInput(result);
 			iPanel.totalInput(")");
 		}
+		
 		//Conversion Buttons
 		if (e.getSource() == nPanel.getHexButton()) {
 			nPanel.setHexActive();
@@ -503,6 +499,14 @@ class cFrame extends JFrame implements ActionListener {
 		return (int) result;
 	}
 	public void updateLabels() {
+		Boolean neg = false;
+		if (iPanel.getAnswerButton().getText().length() < 0)
+			if (iPanel.getAnswerButton().getText().charAt(0) == '-')
+			{
+				neg = true;
+				if (iPanel.getAnswerButton().getText().length() < 1)
+					iPanel.getAnswerButton().setText(iPanel.getAnswerButton().getText().substring(1));
+			}
 		if(datatype == "HEX") {
 			if(iPanel.getAnswerButton().getText() == "") {
 				nPanel.hexValue.setText("0");
@@ -563,85 +567,143 @@ class cFrame extends JFrame implements ActionListener {
 			nPanel.binValue.setText(Integer.toBinaryString(binnum));
 			}
 		}
+		if (neg == true)
+		{
+			nPanel.hexValue.setText("-" + nPanel.hexValue.getText());
+			nPanel.decValue.setText("-" + nPanel.decValue.getText());
+			nPanel.octValue.setText("-" + nPanel.octValue.getText());
+			nPanel.binValue.setText("-" + nPanel.binValue.getText());
+			iPanel.getAnswerButton().setText(iPanel.getAnswerButton().getText());
+		}
 	}
 	public void setDataType(String type) {
 		datatype = type;
 	}
 	public void calculate(String func, int base) {
+		int temp2 = 0;
 		if(func == "add") {
-			int temp2 = Integer.parseInt(iPanel.getAnswerButton().getText(),base);
+			if (!iPanel.getAnswerButton().getText().equals(""))
+				temp2 = Integer.parseInt(iPanel.getAnswerButton().getText(),base);
 			if (!function.equals(""))
 			{
 				calcEquals(datatype);
 			}
-			temp = Integer.parseInt(iPanel.getAnswerButton().getText(),base);
+			if (!iPanel.getAnswerButton().getText().equals(""))
+				temp = Integer.parseInt(iPanel.getAnswerButton().getText(),base);
 			function = "add";
 			iPanel.newInput(result);
-			iPanel.totalInput(temp2 + " + ");
+			if (temp2 == 0)
+			{
+				iPanel.totalInput(" + ");
+			}
+			else
+			{
+				iPanel.totalInput(temp2 + " + ");
+			}
 			isFirstInt = 1;
 		}
 		else if(func == "div") {
-			int temp2 = Integer.parseInt(iPanel.getAnswerButton().getText(),base);
+			if (!iPanel.getAnswerButton().getText().equals(""))
+				temp2 = Integer.parseInt(iPanel.getAnswerButton().getText(),base);
 			if (!function.equals(""))
 			{
 				calcEquals(datatype);
 			}
-			temp = Integer.parseInt(iPanel.getAnswerButton().getText(),base);
+			if (!iPanel.getAnswerButton().getText().equals(""))
+				temp = Integer.parseInt(iPanel.getAnswerButton().getText(),base);
 			function = "div";
 			iPanel.newInput(result);
-			iPanel.totalInput(temp2 + " ÷ ");
+			System.out.println("THIS IS " + iPanel.getInputButton().getText().charAt(iPanel.getInputButton().getText().length() - 1));
+			if (temp2 == 0 || iPanel.getInputButton().getText().charAt(iPanel.getInputButton().getText().length() - 1) == ')')
+			{
+				iPanel.totalInput(" ÷ ");
+			}
+			else
+			{
+				iPanel.totalInput(temp2 + " ÷ ");
+			}
 			isFirstInt = 1;
 		}
 		else if(func == "sub") {
-			int temp2 = Integer.parseInt(iPanel.getAnswerButton().getText(),base);
+			if (!iPanel.getAnswerButton().getText().equals(""))
+				temp2 = Integer.parseInt(iPanel.getAnswerButton().getText(),base);
 			if (!function.equals(""))
 			{
 				calcEquals(datatype);
 			}
-			temp = Integer.parseInt(iPanel.getAnswerButton().getText(),base);
+			if (!iPanel.getAnswerButton().getText().equals(""))
+				temp = Integer.parseInt(iPanel.getAnswerButton().getText(),base);
 			function = "sub";
 			iPanel.newInput(result);
-			iPanel.totalInput(temp2 + " - ");
+			if (temp2 == 0)
+			{
+				iPanel.totalInput(" - ");
+			}
+			else
+			{
+				iPanel.totalInput(temp2 + " - ");
+			}
 			isFirstInt = 1;
 		}
 		else if(func == "mult") {
-			int temp2 = Integer.parseInt(iPanel.getAnswerButton().getText(),base);
+			if (!iPanel.getAnswerButton().getText().equals(""))
+				temp2 = Integer.parseInt(iPanel.getAnswerButton().getText(),base);
 			if (!function.equals(""))
 			{
 				calcEquals(datatype);
 			}
-			temp = Integer.parseInt(iPanel.getAnswerButton().getText(),base);
+			if (!iPanel.getAnswerButton().getText().equals(""))
+				temp = Integer.parseInt(iPanel.getAnswerButton().getText(),base);
 			function = "mult";
 			iPanel.newInput(result);
-			iPanel.totalInput(temp2 + " x ");
+			if (temp2 == 0)
+			{
+				iPanel.totalInput(" x ");
+			}
+			else
+			{
+				iPanel.totalInput(temp2 + " x ");
+			}
 			isFirstInt = 1;
 		}
 	}
 	
 	public void calcEquals(String type)
 	{
+		int temp2 = 0;
 		if(type == "HEX") {
 			if (function.equals("add"))
 			{
-				int temp2 = Integer.parseInt(iPanel.getAnswerButton().getText(),16) + temp;
+				if (!iPanel.getAnswerButton().getText().equals(""))
+					temp2 = Integer.parseInt(iPanel.getAnswerButton().getText(),16) + temp;
 				result = Integer.toHexString(temp2);
 				iPanel.newInput(result);
 			}
 			if (function.equals("sub"))
 			{
-				int temp2 = temp - Integer.parseInt(iPanel.getAnswerButton().getText(),16);
+				if (!iPanel.getAnswerButton().getText().equals(""))
+					temp2 = temp - Integer.parseInt(iPanel.getAnswerButton().getText(),16);
 				result = Integer.toHexString(temp2);
 				iPanel.newInput(result);
 			}
 			if (function.equals("mult"))
 			{
-				int temp2 = Integer.parseInt(iPanel.getAnswerButton().getText(),16) * temp;
+				if (!iPanel.getAnswerButton().getText().equals(""))
+					temp2 = Integer.parseInt(iPanel.getAnswerButton().getText(),16) * temp;
 				result = Integer.toHexString(temp2);
 				iPanel.newInput(result);
 			}
 			if (function.equals("div"))
 			{
-				int temp2 = temp / Integer.parseInt(iPanel.getAnswerButton().getText(),16);
+				if (!iPanel.getAnswerButton().getText().equals(""))
+					temp2 = temp / Integer.parseInt(iPanel.getAnswerButton().getText(),16);
+				result = Integer.toHexString(temp2);
+				iPanel.newInput(result);
+			}
+			if (function.equals("mod"))
+			{
+				if (!iPanel.getAnswerButton().getText().equals(""))
+					temp2 = temp % Integer.parseInt(iPanel.getAnswerButton().getText(),16);
 				result = Integer.toHexString(temp2);
 				iPanel.newInput(result);
 			}
@@ -649,80 +711,112 @@ class cFrame extends JFrame implements ActionListener {
 		if(type == "DEC") {
 			if (function.equals("add"))
 			{
-				int temp2 = Integer.parseInt(iPanel.getAnswerButton().getText()) + temp;
+				if (!iPanel.getAnswerButton().getText().equals(""))
+					temp2 = Integer.parseInt(iPanel.getAnswerButton().getText()) + temp;
 				result = Integer.toString(temp2);
 				iPanel.newInput(result);
 			}
 			if (function.equals("sub"))
 			{
-				int temp2 = temp - Integer.parseInt(iPanel.getAnswerButton().getText());
+				if (!iPanel.getAnswerButton().getText().equals(""))
+					temp2 = temp - Integer.parseInt(iPanel.getAnswerButton().getText());
 				result = Integer.toString(temp2);
 				iPanel.newInput(result);
 			}
 			if (function.equals("mult"))
 			{
-				int temp2 = Integer.parseInt(iPanel.getAnswerButton().getText()) * temp;
+				if (!iPanel.getAnswerButton().getText().equals(""))
+					temp2 = Integer.parseInt(iPanel.getAnswerButton().getText()) * temp;
 				result = Integer.toString(temp2);
 				iPanel.newInput(result);
 			}
 			if (function.equals("div"))
 			{
-				int temp2 = temp / Integer.parseInt(iPanel.getAnswerButton().getText());
+				if (!iPanel.getAnswerButton().getText().equals(""))
+					temp2 = temp / Integer.parseInt(iPanel.getAnswerButton().getText());
 				result = Integer.toString(temp2);
+				iPanel.newInput(result);
+			}
+			if (function.equals("mod"))
+			{
+				if (!iPanel.getAnswerButton().getText().equals(""))
+					temp2 = temp % Integer.parseInt(iPanel.getAnswerButton().getText());
+				result = Integer.toHexString(temp2);
 				iPanel.newInput(result);
 			}
 		}
 		if(type == "OCT") {
 			if (function.equals("add"))
 			{
-				int temp2 = Integer.parseInt(iPanel.getAnswerButton().getText(),8) + temp;
+				if (!iPanel.getAnswerButton().getText().equals(""))
+					temp2 = Integer.parseInt(iPanel.getAnswerButton().getText(),8) + temp;
 				result = Integer.toOctalString(temp2);
 				iPanel.newInput(result);
 			}
 			if (function.equals("sub"))
 			{
-				int temp2 = temp - Integer.parseInt(iPanel.getAnswerButton().getText(),8);
+				if (!iPanel.getAnswerButton().getText().equals(""))
+					temp2 = temp - Integer.parseInt(iPanel.getAnswerButton().getText(),8);
 				result = Integer.toOctalString(temp2);
 				iPanel.newInput(result);
 			}
 			if (function.equals("mult"))
 			{
-				int temp2 = Integer.parseInt(iPanel.getAnswerButton().getText(),8) * temp;
+				if (!iPanel.getAnswerButton().getText().equals(""))
+					temp2 = Integer.parseInt(iPanel.getAnswerButton().getText(),8) * temp;
 				result = Integer.toOctalString(temp2);
 				iPanel.newInput(result);
 			}
 			if (function.equals("div"))
 			{
-				int temp2 = temp / Integer.parseInt(iPanel.getAnswerButton().getText(),8);
+				if (!iPanel.getAnswerButton().getText().equals(""))
+					temp2 = temp / Integer.parseInt(iPanel.getAnswerButton().getText(),8);
 				result = Integer.toOctalString(temp2);
+				iPanel.newInput(result);
+			}
+			if (function.equals("mod"))
+			{
+				if (!iPanel.getAnswerButton().getText().equals(""))
+					temp2 = temp % Integer.parseInt(iPanel.getAnswerButton().getText(),8);
+				result = Integer.toHexString(temp2);
 				iPanel.newInput(result);
 			}
 		}
 		if(type == "BIN") {
 			if (function.equals("add"))
 			{
-				int temp2 = Integer.parseInt(iPanel.getAnswerButton().getText(),2) + temp;
+				if (!iPanel.getAnswerButton().getText().equals(""))
+					temp2 = Integer.parseInt(iPanel.getAnswerButton().getText(),2) + temp;
 				result = Integer.toBinaryString(temp2);
 				iPanel.newInput(result);
 			}
 			if (function.equals("sub"))
 			{
-				int temp2 = temp - Integer.parseInt(iPanel.getAnswerButton().getText(),2);
+				if (!iPanel.getAnswerButton().getText().equals(""))
+					temp2 = temp - Integer.parseInt(iPanel.getAnswerButton().getText(),2);
 				result = Integer.toBinaryString(temp2);
 				iPanel.newInput(result);
 			}
 			if (function.equals("mult"))
 			{
-				int temp2 = Integer.parseInt(iPanel.getAnswerButton().getText(),2) * temp;
+				if (!iPanel.getAnswerButton().getText().equals(""))
+					temp2 = Integer.parseInt(iPanel.getAnswerButton().getText(),2) * temp;
 				result = Integer.toBinaryString(temp2);
 				iPanel.newInput(result);
 			}
 			if (function.equals("div"))
 			{
-				int temp2 = temp / Integer.parseInt(iPanel.getAnswerButton().getText(),2);
+				if (!iPanel.getAnswerButton().getText().equals(""))
+					temp2 = temp / Integer.parseInt(iPanel.getAnswerButton().getText(),2);
 				result = Integer.toBinaryString(temp2);
 				iPanel.newInput(result);
-				
+			}
+			if (function.equals("mod"))
+			{
+				if (!iPanel.getAnswerButton().getText().equals(""))
+					temp2 = temp % Integer.parseInt(iPanel.getAnswerButton().getText(),2);
+				result = Integer.toHexString(temp2);
+				iPanel.newInput(result);
 			}
 		}
 	}
@@ -979,7 +1073,7 @@ class inputPanel extends JPanel{
 	
  	public inputPanel() {
 		//Input label for the raw input
-		inputLabel = new JLabel("", SwingConstants.RIGHT);
+		inputLabel = new JLabel("  ", SwingConstants.RIGHT);
 		Font font = new Font("TimesRoman",Font.BOLD,25);
 		inputLabel.setForeground(Color.GRAY);
 		inputLabel.setFont(font);
@@ -1016,4 +1110,3 @@ class inputPanel extends JPanel{
 		getInputButton().setText(s);
 	}
 }
-
