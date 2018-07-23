@@ -367,7 +367,7 @@ class cFrame extends JFrame implements ActionListener {
 				newVal = Integer.toHexString(binnum);
 			}
 			else if(datatype == "HEX") {
-				
+				newVal = iPanel.getAnswerButton().getText();
 			}
 			else {
 				System.out.print("Something went wrong in the getHexButton function");
@@ -388,7 +388,7 @@ class cFrame extends JFrame implements ActionListener {
 				
 			}
 			else if(datatype == "DEC") {
-
+				newVal = iPanel.getAnswerButton().getText();
 			}
 			else if(datatype == "OCT") {
 				int decnum = Integer.parseInt(iPanel.getAnswerButton().getText(), 8);
@@ -423,7 +423,7 @@ class cFrame extends JFrame implements ActionListener {
 				newVal = Integer.toOctalString(Integer.parseInt(iPanel.getAnswerButton().getText()));
 			}
 			else if(datatype == "OCT") {
-				
+				newVal = iPanel.getAnswerButton().getText();
 			}
 			else if(datatype == "BIN") {
 				int binnum = Integer.parseInt(iPanel.getAnswerButton().getText(), 2);
@@ -462,7 +462,7 @@ class cFrame extends JFrame implements ActionListener {
 				newVal = Integer.toBinaryString(decnum);
 			}
 			else if(datatype == "BIN") {
-				
+				newVal = iPanel.getAnswerButton().getText();
 			}
 			else if(datatype == "HEX") {
 				int hexnum = Integer.parseInt(iPanel.getAnswerButton().getText(), 16);
@@ -475,9 +475,9 @@ class cFrame extends JFrame implements ActionListener {
 			//hex = hex.substring(2);
 			//nPanel.
 			bPanel.setBinaryButtons();
-			System.out.print("Datatype before: " + datatype);
+			
 			setDataType("BIN");
-			System.out.print("Datatype after: " + datatype);
+			
 			iPanel.newInput(newVal);
 		}
 		updateLabels();
@@ -604,25 +604,25 @@ class cFrame extends JFrame implements ActionListener {
 			if (function.equals("add"))
 			{
 				int temp2 = Integer.parseInt(iPanel.getAnswerButton().getText(),16) + temp;
-				result = String.valueOf(temp2);
+				result = Integer.toHexString(temp2);
 				iPanel.newInput(result);
 			}
 			if (function.equals("sub"))
 			{
 				int temp2 = temp - Integer.parseInt(iPanel.getAnswerButton().getText(),16);
-				result = String.valueOf(temp2);
+				result = Integer.toHexString(temp2);
 				iPanel.newInput(result);
 			}
 			if (function.equals("mult"))
 			{
 				int temp2 = Integer.parseInt(iPanel.getAnswerButton().getText(),16) * temp;
-				result = String.valueOf(temp2);
+				result = Integer.toHexString(temp2);
 				iPanel.newInput(result);
 			}
 			if (function.equals("div"))
 			{
 				int temp2 = temp / Integer.parseInt(iPanel.getAnswerButton().getText(),16);
-				result = String.valueOf(temp2);
+				result = Integer.toHexString(temp2);
 				iPanel.newInput(result);
 			}
 		}
@@ -630,25 +630,25 @@ class cFrame extends JFrame implements ActionListener {
 			if (function.equals("add"))
 			{
 				int temp2 = Integer.parseInt(iPanel.getAnswerButton().getText()) + temp;
-				result = String.valueOf(temp2);
+				result = Integer.toString(temp2);
 				iPanel.newInput(result);
 			}
 			if (function.equals("sub"))
 			{
 				int temp2 = temp - Integer.parseInt(iPanel.getAnswerButton().getText());
-				result = String.valueOf(temp2);
+				result = Integer.toString(temp2);
 				iPanel.newInput(result);
 			}
 			if (function.equals("mult"))
 			{
 				int temp2 = Integer.parseInt(iPanel.getAnswerButton().getText()) * temp;
-				result = String.valueOf(temp2);
+				result = Integer.toString(temp2);
 				iPanel.newInput(result);
 			}
 			if (function.equals("div"))
 			{
 				int temp2 = temp / Integer.parseInt(iPanel.getAnswerButton().getText());
-				result = String.valueOf(temp2);
+				result = Integer.toString(temp2);
 				iPanel.newInput(result);
 			}
 		}
@@ -656,25 +656,25 @@ class cFrame extends JFrame implements ActionListener {
 			if (function.equals("add"))
 			{
 				int temp2 = Integer.parseInt(iPanel.getAnswerButton().getText(),8) + temp;
-				result = String.valueOf(temp2);
+				result = Integer.toOctalString(temp2);
 				iPanel.newInput(result);
 			}
 			if (function.equals("sub"))
 			{
 				int temp2 = temp - Integer.parseInt(iPanel.getAnswerButton().getText(),8);
-				result = String.valueOf(temp2);
+				result = Integer.toOctalString(temp2);
 				iPanel.newInput(result);
 			}
 			if (function.equals("mult"))
 			{
 				int temp2 = Integer.parseInt(iPanel.getAnswerButton().getText(),8) * temp;
-				result = String.valueOf(temp2);
+				result = Integer.toOctalString(temp2);
 				iPanel.newInput(result);
 			}
 			if (function.equals("div"))
 			{
 				int temp2 = temp / Integer.parseInt(iPanel.getAnswerButton().getText(),8);
-				result = String.valueOf(temp2);
+				result = Integer.toOctalString(temp2);
 				iPanel.newInput(result);
 			}
 		}
@@ -682,25 +682,25 @@ class cFrame extends JFrame implements ActionListener {
 			if (function.equals("add"))
 			{
 				int temp2 = Integer.parseInt(iPanel.getAnswerButton().getText(),2) + temp;
-				result = String.valueOf(temp2);
+				result = Integer.toBinaryString(temp2);
 				iPanel.newInput(result);
 			}
 			if (function.equals("sub"))
 			{
 				int temp2 = temp - Integer.parseInt(iPanel.getAnswerButton().getText(),2);
-				result = String.valueOf(temp2);
+				result = Integer.toBinaryString(temp2);
 				iPanel.newInput(result);
 			}
 			if (function.equals("mult"))
 			{
 				int temp2 = Integer.parseInt(iPanel.getAnswerButton().getText(),2) * temp;
-				result = String.valueOf(temp2);
+				result = Integer.toBinaryString(temp2);
 				iPanel.newInput(result);
 			}
 			if (function.equals("div"))
 			{
 				int temp2 = temp / Integer.parseInt(iPanel.getAnswerButton().getText(),2);
-				result = String.valueOf(temp2);
+				result = Integer.toBinaryString(temp2);
 				iPanel.newInput(result);
 			}
 		}
