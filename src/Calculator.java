@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import javax.script.*;
 
 public class Calculator{
 
@@ -286,10 +287,13 @@ class cFrame extends JFrame implements ActionListener {
 		}
 		if (e.getSource() == bPanel.getEqualsButton())
 		{
-			calcEquals(datatype);
+			//calcEquals(datatype);
 			function = "";
-			iPanel.newTotalInput("");
+			//iPanel.newTotalInput("");
 			isFirstInt = 1;
+			if(datatype == "DEC") {
+				iPanel.newInput(Integer.toString(parseString(iPanel.getInputButton().getText()+iPanel.getAnswerButton().getText())));
+			}
 		}
 		
 		//Aux Buttons
@@ -481,6 +485,22 @@ class cFrame extends JFrame implements ActionListener {
 			iPanel.newInput(newVal);
 		}
 		updateLabels();
+		System.out.println("Evaluation so far" + iPanel.getInputButton().getText()+iPanel.getAnswerButton().getText());
+		
+	}
+	public int parseString(String input) {
+		System.out.print("Inside Parse String");
+		input.replace('x', '*');
+		input.trim();
+		ScriptEngineManager manager = new ScriptEngineManager();
+		ScriptEngine engine = manager.getEngineByName("js");
+		Object result = "";
+		try {
+			result = engine.eval(input);
+		} catch (ScriptException e) {
+			e.printStackTrace();
+		}
+		return (int) result;
 	}
 	public void updateLabels() {
 		if(datatype == "HEX") {
@@ -702,6 +722,7 @@ class cFrame extends JFrame implements ActionListener {
 				int temp2 = temp / Integer.parseInt(iPanel.getAnswerButton().getText(),2);
 				result = Integer.toBinaryString(temp2);
 				iPanel.newInput(result);
+				
 			}
 		}
 	}
