@@ -66,6 +66,8 @@ class cFrame extends JFrame implements ActionListener {
 		bPanel.getCeButton().addActionListener(this);
 		bPanel.getNegButton().addActionListener(this);
 		bPanel.getModButton().addActionListener(this);
+		bPanel.getLeftPButton().addActionListener(this);
+		bPanel.getRightPButton().addActionListener(this);
 		
 		//Conversion
 		nPanel.getHexButton().addActionListener(this);
@@ -321,7 +323,22 @@ class cFrame extends JFrame implements ActionListener {
 			iPanel.totalInput(temp2 + " mod ");
 			isFirstInt = 1;
 		}
-
+		if (e.getSource() == bPanel.getLeftPButton()){
+			if (isFirstInt == 1)
+			{
+				iPanel.newInput("");
+				isFirstInt = 0;
+			}
+			iPanel.totalInput("(");
+		}
+		if (e.getSource() == bPanel.getRightPButton()){
+			if (isFirstInt == 1)
+			{
+				iPanel.newInput("");
+				isFirstInt = 0;
+			}
+			iPanel.totalInput(")");
+		}
 		//Conversion Buttons
 		if (e.getSource() == nPanel.getHexButton()) {
 			nPanel.setHexActive();
