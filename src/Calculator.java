@@ -225,59 +225,68 @@ class cFrame extends JFrame implements ActionListener {
 		//4 Function Calc Buttons
 		if (e.getSource() == bPanel.getAddButton())
 		{
-			int temp2 = Integer.parseInt(iPanel.getAnswerButton().getText());
-			if (!function.equals(""))
-			{
-				calcEquals();
+			if(datatype == "HEX") {
+				calculate("add",16);
 			}
-			temp = Integer.parseInt(iPanel.getAnswerButton().getText());
-			function = "add";
-			iPanel.newInput(result);
-			iPanel.totalInput(temp2 + " + ");
-			isFirstInt = 1;
+			if(datatype == "DEC") {
+				calculate("add",10);
+			}
+			if(datatype == "OCT") {
+				calculate("add",8);
+			}
+			if(datatype == "BIN") {
+				calculate("add",2);
+			}
 		}
 		if (e.getSource() == bPanel.getSubButton())
 		{
-			int temp2 = Integer.parseInt(iPanel.getAnswerButton().getText());
-			if (!function.equals(""))
-			{
-				calcEquals();
+			if(datatype == "HEX") {
+				calculate("sub",16);
 			}
-			temp = Integer.parseInt(iPanel.getAnswerButton().getText());
-			function = "sub";
-			iPanel.newInput(result);
-			iPanel.totalInput(temp2 + " - ");
-			isFirstInt = 1;
+			if(datatype == "DEC") {
+				calculate("sub",10);
+			}
+			if(datatype == "OCT") {
+				calculate("sub",8);
+			}
+			if(datatype == "BIN") {
+				calculate("sub",2);
+			}
 		}
 		if (e.getSource() == bPanel.getMultButton())
 		{
-			int temp2 = Integer.parseInt(iPanel.getAnswerButton().getText());
-			if (!function.equals(""))
-			{
-				calcEquals();
+			if(datatype == "HEX") {
+				calculate("mult",16);
 			}
-			temp = Integer.parseInt(iPanel.getAnswerButton().getText());
-			function = "mult";
-			iPanel.newInput(result);
-			iPanel.totalInput(temp2 + " x ");
-			isFirstInt = 1;
+			if(datatype == "DEC") {
+				calculate("mult",10);
+			}
+			if(datatype == "OCT") {
+				calculate("mult",8);
+			}
+			if(datatype == "BIN") {
+				calculate("mult",2);
+			}
+			
 		}
 		if (e.getSource() == bPanel.getDivButton())
 		{
-			int temp2 = Integer.parseInt(iPanel.getAnswerButton().getText());
-			if (!function.equals(""))
-			{
-				calcEquals();
+			if(datatype == "HEX") {
+				calculate("div",16);
 			}
-			temp = Integer.parseInt(iPanel.getAnswerButton().getText());
-			function = "div";
-			iPanel.newInput(result);
-			iPanel.totalInput(temp2 + " ÷ ");
-			isFirstInt = 1;
+			if(datatype == "DEC") {
+				calculate("div",10);
+			}
+			if(datatype == "OCT") {
+				calculate("div",8);
+			}
+			if(datatype == "BIN") {
+				calculate("div",2);
+			}
 		}
 		if (e.getSource() == bPanel.getEqualsButton())
 		{
-			calcEquals();
+			calcEquals(datatype);
 			function = "";
 			iPanel.newTotalInput("");
 			isFirstInt = 1;
@@ -315,7 +324,7 @@ class cFrame extends JFrame implements ActionListener {
 			int temp2 = Integer.parseInt(iPanel.getAnswerButton().getText());
 			if (!function.equals(""))
 			{
-				calcEquals();
+				calcEquals(datatype);
 			}
 			temp = Integer.parseInt(iPanel.getAnswerButton().getText());
 			function = "mod";
@@ -538,39 +547,162 @@ class cFrame extends JFrame implements ActionListener {
 	public void setDataType(String type) {
 		datatype = type;
 	}
-
+	public void calculate(String func, int base) {
+		if(func == "add") {
+			int temp2 = Integer.parseInt(iPanel.getAnswerButton().getText(),base);
+			if (!function.equals(""))
+			{
+				calcEquals(datatype);
+			}
+			temp = Integer.parseInt(iPanel.getAnswerButton().getText(),base);
+			function = "add";
+			iPanel.newInput(result);
+			iPanel.totalInput(temp2 + " + ");
+			isFirstInt = 1;
+		}
+		else if(func == "div") {
+			int temp2 = Integer.parseInt(iPanel.getAnswerButton().getText(),base);
+			if (!function.equals(""))
+			{
+				calcEquals(datatype);
+			}
+			temp = Integer.parseInt(iPanel.getAnswerButton().getText(),base);
+			function = "div";
+			iPanel.newInput(result);
+			iPanel.totalInput(temp2 + " ÷ ");
+			isFirstInt = 1;
+		}
+		else if(func == "sub") {
+			int temp2 = Integer.parseInt(iPanel.getAnswerButton().getText(),base);
+			if (!function.equals(""))
+			{
+				calcEquals(datatype);
+			}
+			temp = Integer.parseInt(iPanel.getAnswerButton().getText(),base);
+			function = "sub";
+			iPanel.newInput(result);
+			iPanel.totalInput(temp2 + " - ");
+			isFirstInt = 1;
+		}
+		else if(func == "mult") {
+			int temp2 = Integer.parseInt(iPanel.getAnswerButton().getText(),base);
+			if (!function.equals(""))
+			{
+				calcEquals(datatype);
+			}
+			temp = Integer.parseInt(iPanel.getAnswerButton().getText(),base);
+			function = "mult";
+			iPanel.newInput(result);
+			iPanel.totalInput(temp2 + " x ");
+			isFirstInt = 1;
+		}
+	}
 	
-	public void calcEquals()
+	public void calcEquals(String type)
 	{
-		if (function.equals("add"))
-		{
-			int temp2 = Integer.parseInt(iPanel.getAnswerButton().getText()) + temp;
-			result = String.valueOf(temp2);
-			iPanel.newInput(result);
+		if(type == "HEX") {
+			if (function.equals("add"))
+			{
+				int temp2 = Integer.parseInt(iPanel.getAnswerButton().getText(),16) + temp;
+				result = String.valueOf(temp2);
+				iPanel.newInput(result);
+			}
+			if (function.equals("sub"))
+			{
+				int temp2 = temp - Integer.parseInt(iPanel.getAnswerButton().getText(),16);
+				result = String.valueOf(temp2);
+				iPanel.newInput(result);
+			}
+			if (function.equals("mult"))
+			{
+				int temp2 = Integer.parseInt(iPanel.getAnswerButton().getText(),16) * temp;
+				result = String.valueOf(temp2);
+				iPanel.newInput(result);
+			}
+			if (function.equals("div"))
+			{
+				int temp2 = temp / Integer.parseInt(iPanel.getAnswerButton().getText(),16);
+				result = String.valueOf(temp2);
+				iPanel.newInput(result);
+			}
 		}
-		if (function.equals("sub"))
-		{
-			int temp2 = temp - Integer.parseInt(iPanel.getAnswerButton().getText());
-			result = String.valueOf(temp2);
-			iPanel.newInput(result);
+		if(type == "DEC") {
+			if (function.equals("add"))
+			{
+				int temp2 = Integer.parseInt(iPanel.getAnswerButton().getText()) + temp;
+				result = String.valueOf(temp2);
+				iPanel.newInput(result);
+			}
+			if (function.equals("sub"))
+			{
+				int temp2 = temp - Integer.parseInt(iPanel.getAnswerButton().getText());
+				result = String.valueOf(temp2);
+				iPanel.newInput(result);
+			}
+			if (function.equals("mult"))
+			{
+				int temp2 = Integer.parseInt(iPanel.getAnswerButton().getText()) * temp;
+				result = String.valueOf(temp2);
+				iPanel.newInput(result);
+			}
+			if (function.equals("div"))
+			{
+				int temp2 = temp / Integer.parseInt(iPanel.getAnswerButton().getText());
+				result = String.valueOf(temp2);
+				iPanel.newInput(result);
+			}
 		}
-		if (function.equals("mult"))
-		{
-			int temp2 = Integer.parseInt(iPanel.getAnswerButton().getText()) * temp;
-			result = String.valueOf(temp2);
-			iPanel.newInput(result);
+		if(type == "OCT") {
+			if (function.equals("add"))
+			{
+				int temp2 = Integer.parseInt(iPanel.getAnswerButton().getText(),8) + temp;
+				result = String.valueOf(temp2);
+				iPanel.newInput(result);
+			}
+			if (function.equals("sub"))
+			{
+				int temp2 = temp - Integer.parseInt(iPanel.getAnswerButton().getText(),8);
+				result = String.valueOf(temp2);
+				iPanel.newInput(result);
+			}
+			if (function.equals("mult"))
+			{
+				int temp2 = Integer.parseInt(iPanel.getAnswerButton().getText(),8) * temp;
+				result = String.valueOf(temp2);
+				iPanel.newInput(result);
+			}
+			if (function.equals("div"))
+			{
+				int temp2 = temp / Integer.parseInt(iPanel.getAnswerButton().getText(),8);
+				result = String.valueOf(temp2);
+				iPanel.newInput(result);
+			}
 		}
-		if (function.equals("div"))
-		{
-			int temp2 = temp / Integer.parseInt(iPanel.getAnswerButton().getText());
-			result = String.valueOf(temp2);
-			iPanel.newInput(result);
-		}
-		if (function.equals("mod"))
-		{
-			int temp2 = temp % Integer.parseInt(iPanel.getAnswerButton().getText());
-			result = String.valueOf(temp2);
-			iPanel.newInput(result);
+		if(type == "BIN") {
+			if (function.equals("add"))
+			{
+				int temp2 = Integer.parseInt(iPanel.getAnswerButton().getText(),2) + temp;
+				result = String.valueOf(temp2);
+				iPanel.newInput(result);
+			}
+			if (function.equals("sub"))
+			{
+				int temp2 = temp - Integer.parseInt(iPanel.getAnswerButton().getText(),2);
+				result = String.valueOf(temp2);
+				iPanel.newInput(result);
+			}
+			if (function.equals("mult"))
+			{
+				int temp2 = Integer.parseInt(iPanel.getAnswerButton().getText(),2) * temp;
+				result = String.valueOf(temp2);
+				iPanel.newInput(result);
+			}
+			if (function.equals("div"))
+			{
+				int temp2 = temp / Integer.parseInt(iPanel.getAnswerButton().getText(),2);
+				result = String.valueOf(temp2);
+				iPanel.newInput(result);
+			}
 		}
 	}
 	
