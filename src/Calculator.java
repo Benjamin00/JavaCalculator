@@ -373,15 +373,15 @@ class cFrame extends JFrame implements ActionListener {
 				
 			}
 			else if(datatype == "DEC") {
-				newVal = Integer.toHexString(Integer.parseInt(iPanel.getAnswerButton().getText()));
+				newVal = (Integer.toHexString(Integer.parseInt(iPanel.getAnswerButton().getText()))).toUpperCase();
 			}
 			else if(datatype == "OCT") {
 				int decnum = Integer.parseInt(iPanel.getAnswerButton().getText(), 8);
-				newVal = Integer.toHexString(decnum);
+				newVal = Integer.toHexString(decnum).toUpperCase();
 			}
 			else if(datatype == "BIN") {
 				int binnum = Integer.parseInt(iPanel.getAnswerButton().getText(), 2);
-				newVal = Integer.toHexString(binnum);
+				newVal = Integer.toHexString(binnum).toUpperCase();
 			}
 			else if(datatype == "HEX") {
 				newVal = iPanel.getAnswerButton().getText();
@@ -511,7 +511,7 @@ class cFrame extends JFrame implements ActionListener {
 		Object result = "";
 		try {
 			result = engine.eval(temp);
-		} catch (ScriptException e) {
+		} catch (ScriptException e)  {
 			e.printStackTrace();
 		}
 		return (int) result;
@@ -549,7 +549,7 @@ class cFrame extends JFrame implements ActionListener {
 			}
 			else {
 			int decnum = Integer.parseInt(iPanel.getAnswerButton().getText(), 10);
-			nPanel.hexValue.setText(Integer.toHexString(decnum));
+			nPanel.hexValue.setText(Integer.toHexString(decnum).toUpperCase());
 			nPanel.decValue.setText(Integer.toString(decnum));
 			nPanel.octValue.setText(Integer.toOctalString(decnum));
 			nPanel.binValue.setText(Integer.toBinaryString(decnum));
@@ -564,7 +564,7 @@ class cFrame extends JFrame implements ActionListener {
 			}
 			else {
 			int octnum = Integer.parseInt(iPanel.getAnswerButton().getText(), 8);
-			nPanel.hexValue.setText(Integer.toHexString(octnum));
+			nPanel.hexValue.setText(Integer.toHexString(octnum).toUpperCase());
 			nPanel.decValue.setText(Integer.toString(octnum));
 			nPanel.octValue.setText(Integer.toOctalString(octnum));
 			nPanel.binValue.setText(Integer.toBinaryString(octnum));
@@ -579,7 +579,7 @@ class cFrame extends JFrame implements ActionListener {
 			}
 			else {
 			int binnum = Integer.parseInt(iPanel.getAnswerButton().getText(), 2);
-			nPanel.hexValue.setText(Integer.toHexString(binnum));
+			nPanel.hexValue.setText(Integer.toHexString(binnum).toUpperCase());
 			nPanel.decValue.setText(Integer.toString(binnum));
 			nPanel.octValue.setText(Integer.toOctalString(binnum));
 			nPanel.binValue.setText(Integer.toBinaryString(binnum));
@@ -615,6 +615,18 @@ class cFrame extends JFrame implements ActionListener {
 			{
 				iPanel.totalInput(" + ");
 			}
+			else if (datatype == "HEX")
+			{
+				iPanel.totalInput((Integer.toHexString(temp2) + " + ").toUpperCase());
+			}
+			else if (datatype == "OCT")
+			{
+				iPanel.totalInput(Integer.toOctalString(temp2) + " + ");
+			}
+			else if (datatype == "BIN")
+			{
+				iPanel.totalInput(Integer.toBinaryString(temp2) + " + ");
+			}
 			else
 			{
 				iPanel.totalInput(temp2 + " + ");
@@ -637,6 +649,18 @@ class cFrame extends JFrame implements ActionListener {
 			{
 				iPanel.totalInput(" ÷ ");
 			}
+			else if (datatype == "HEX")
+			{
+				iPanel.totalInput((Integer.toHexString(temp2) + " ÷ ").toUpperCase());
+			}
+			else if (datatype == "OCT")
+			{
+				iPanel.totalInput(Integer.toOctalString(temp2) + " ÷ ");
+			}
+			else if (datatype == "BIN")
+			{
+				iPanel.totalInput(Integer.toBinaryString(temp2) + " ÷ ");
+			}
 			else
 			{
 				iPanel.totalInput(temp2 + " ÷ ");
@@ -654,9 +678,21 @@ class cFrame extends JFrame implements ActionListener {
 				temp = Integer.parseInt(iPanel.getAnswerButton().getText(),base);
 			function = "sub";
 			iPanel.newInput(result);
-			if (temp2 == 0)
+			if (temp2 == 0 || iPanel.getInputButton().getText().charAt(iPanel.getInputButton().getText().length() - 1) == ')')
 			{
 				iPanel.totalInput(" - ");
+			}
+			else if (datatype == "HEX")
+			{
+				iPanel.totalInput((Integer.toHexString(temp2) + " - ").toUpperCase());
+			}
+			else if (datatype == "OCT")
+			{
+				iPanel.totalInput(Integer.toOctalString(temp2) + " - ");
+			}
+			else if (datatype == "BIN")
+			{
+				iPanel.totalInput(Integer.toBinaryString(temp2) + " - ");
 			}
 			else
 			{
@@ -675,9 +711,21 @@ class cFrame extends JFrame implements ActionListener {
 				temp = Integer.parseInt(iPanel.getAnswerButton().getText(),base);
 			function = "mult";
 			iPanel.newInput(result);
-			if (temp2 == 0)
+			if (temp2 == 0 || iPanel.getInputButton().getText().charAt(iPanel.getInputButton().getText().length() - 1) == ')')
 			{
 				iPanel.totalInput(" x ");
+			}
+			else if (datatype == "HEX")
+			{
+				iPanel.totalInput((Integer.toHexString(temp2) + " x ").toUpperCase());
+			}
+			else if (datatype == "OCT")
+			{
+				iPanel.totalInput(Integer.toOctalString(temp2) + " x ");
+			}
+			else if (datatype == "BIN")
+			{
+				iPanel.totalInput(Integer.toBinaryString(temp2) + " x ");
 			}
 			else
 			{
@@ -696,35 +744,35 @@ class cFrame extends JFrame implements ActionListener {
 			{
 				if (!iPanel.getAnswerButton().getText().equals(""))
 					temp2 = Integer.parseInt(iPanel.getAnswerButton().getText(),16) + temp;
-				result = Integer.toHexString(temp2);
+				result = Integer.toHexString(temp2).toUpperCase();
 				iPanel.newInput(result);
 			}
 			if (function.equals("sub"))
 			{
 				if (!iPanel.getAnswerButton().getText().equals(""))
 					temp2 = temp - Integer.parseInt(iPanel.getAnswerButton().getText(),16);
-				result = Integer.toHexString(temp2);
+				result = Integer.toHexString(temp2).toUpperCase();
 				iPanel.newInput(result);
 			}
 			if (function.equals("mult"))
 			{
 				if (!iPanel.getAnswerButton().getText().equals(""))
 					temp2 = Integer.parseInt(iPanel.getAnswerButton().getText(),16) * temp;
-				result = Integer.toHexString(temp2);
+				result = Integer.toHexString(temp2).toUpperCase();
 				iPanel.newInput(result);
 			}
 			if (function.equals("div"))
 			{
 				if (!iPanel.getAnswerButton().getText().equals(""))
 					temp2 = temp / Integer.parseInt(iPanel.getAnswerButton().getText(),16);
-				result = Integer.toHexString(temp2);
+				result = Integer.toHexString(temp2).toUpperCase();
 				iPanel.newInput(result);
 			}
 			if (function.equals("mod"))
 			{
 				if (!iPanel.getAnswerButton().getText().equals(""))
 					temp2 = temp % Integer.parseInt(iPanel.getAnswerButton().getText(),16);
-				result = Integer.toHexString(temp2);
+				result = Integer.toHexString(temp2).toUpperCase();
 				iPanel.newInput(result);
 			}
 		}
@@ -761,7 +809,7 @@ class cFrame extends JFrame implements ActionListener {
 			{
 				if (!iPanel.getAnswerButton().getText().equals(""))
 					temp2 = temp % Integer.parseInt(iPanel.getAnswerButton().getText());
-				result = Integer.toHexString(temp2);
+				result = Integer.toHexString(temp2).toUpperCase();
 				iPanel.newInput(result);
 			}
 		}
@@ -798,7 +846,7 @@ class cFrame extends JFrame implements ActionListener {
 			{
 				if (!iPanel.getAnswerButton().getText().equals(""))
 					temp2 = temp % Integer.parseInt(iPanel.getAnswerButton().getText(),8);
-				result = Integer.toHexString(temp2);
+				result = Integer.toHexString(temp2).toUpperCase();
 				iPanel.newInput(result);
 			}
 		}
@@ -835,7 +883,7 @@ class cFrame extends JFrame implements ActionListener {
 			{
 				if (!iPanel.getAnswerButton().getText().equals(""))
 					temp2 = temp % Integer.parseInt(iPanel.getAnswerButton().getText(),2);
-				result = Integer.toHexString(temp2);
+				result = Integer.toHexString(temp2).toUpperCase();
 				iPanel.newInput(result);
 			}
 		}
