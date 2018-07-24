@@ -67,8 +67,8 @@ class cFrame extends JFrame implements ActionListener {
 		bPanel.getCeButton().addActionListener(this);
 		bPanel.getNegButton().addActionListener(this);
 		bPanel.getModButton().addActionListener(this);
-		bPanel.getLeftPButton().addActionListener(this);
-		bPanel.getRightPButton().addActionListener(this);
+		//bPanel.getLeftPButton().addActionListener(this);
+		//bPanel.getRightPButton().addActionListener(this);
 		
 		//Conversion
 		nPanel.getHexButton().addActionListener(this);
