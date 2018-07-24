@@ -597,6 +597,7 @@ class cFrame extends JFrame implements ActionListener {
 		datatype = type;
 	}
 	public void calculate(String func, int base) {
+		
 		int temp2 = 0;
 		if(func == "add") {
 			if (!iPanel.getAnswerButton().getText().equals(""))
@@ -687,6 +688,7 @@ class cFrame extends JFrame implements ActionListener {
 	
 	public void calcEquals(String type)
 	{
+		//Add, subtract, multiply or divide in every different number format, depending on the current format active
 		int temp2 = 0;
 		if(type == "HEX") {
 			if (function.equals("add"))
@@ -997,6 +999,7 @@ class buttonPanel extends JPanel{
 	
 }
 class numPanel extends JPanel{
+	//Functions to manipulate the format buttons
 	public JButton hexButton, decButton, octButton, binButton;
 	public JLabel hexValue, decValue, octValue, binValue;
 	
@@ -1087,7 +1090,7 @@ class numPanel extends JPanel{
 class inputPanel extends JPanel{
 	public JLabel inputLabel;
 	public JLabel ansLabel;
-	
+
  	public inputPanel() {
 		//Input label for the raw input
 		inputLabel = new JLabel("  ", SwingConstants.RIGHT);
