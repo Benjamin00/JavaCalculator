@@ -68,8 +68,8 @@ class cFrame extends JFrame implements ActionListener {
 		bPanel.getCeButton().addActionListener(this);
 		bPanel.getNegButton().addActionListener(this);
 		bPanel.getModButton().addActionListener(this);
-		//bPanel.getLeftPButton().addActionListener(this);
-		//bPanel.getRightPButton().addActionListener(this);
+		bPanel.getLeftPButton().addActionListener(this);
+		bPanel.getRightPButton().addActionListener(this);
 		
 		//Conversion
 		nPanel.getHexButton().addActionListener(this);
@@ -506,6 +506,7 @@ class cFrame extends JFrame implements ActionListener {
 	public int parseString(String input) {
 		System.out.print("Inside Parse String");
 		String temp = input.replace('x', '*');
+		temp = temp.replace('÷', '/');
 		temp = temp.trim();
 		Object result = "";
 		try {
@@ -610,7 +611,7 @@ class cFrame extends JFrame implements ActionListener {
 				temp = Integer.parseInt(iPanel.getAnswerButton().getText(),base);
 			function = "add";
 			iPanel.newInput(result);
-			if (temp2 == 0)
+			if (temp2 == 0 || iPanel.getInputButton().getText().charAt(iPanel.getInputButton().getText().length() - 1) == ')')
 			{
 				iPanel.totalInput(" + ");
 			}
