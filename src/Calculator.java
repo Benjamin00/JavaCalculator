@@ -21,7 +21,8 @@ class cFrame extends JFrame implements ActionListener {
 	private buttonPanel bPanel;
 	private numPanel nPanel;
 	private inputPanel iPanel;
-	
+	int leftPnum = 0;
+	int rightPnum = 0;
 	private String function = "";
 	private int temp;
 	private String result = "";
@@ -287,10 +288,24 @@ class cFrame extends JFrame implements ActionListener {
 		}
 		if (e.getSource() == bPanel.getEqualsButton())
 		{
+			String input = iPanel.getInputButton().getText()+ iPanel.getAnswerButton().getText();
+			if(datatype == "DEC") {
 			calcEquals(datatype);
 			function = "";
+			//iPanel.input(iPanel.getAnswerButton().getText()); //add the last value into the input
+			System.out.print("Equals input" + input);
 			iPanel.newTotalInput(" ");
+			iPanel.newInput(Integer.toString(parseString(input)));
 			isFirstInt = 1;
+			}
+			else {
+				calcEquals(datatype);
+				function = "";
+				//iPanel.input(iPanel.getAnswerButton().getText()); //add the last value into the input
+				//System.out.print("Equals input" + input);
+				iPanel.newTotalInput(" ");
+				isFirstInt = 1;
+			}
 		}
 		
 		//Aux Buttons
@@ -340,12 +355,14 @@ class cFrame extends JFrame implements ActionListener {
 				isFirstInt = 0;
 			}
 			iPanel.totalInput("(");
+			leftPnum+=1;
 		}
 		if (e.getSource() == bPanel.getRightPButton()){
 			iPanel.totalInput(iPanel.getAnswerButton().getText());
 			isFirstInt = 0;
 			iPanel.newInput(result);
 			iPanel.totalInput(")");
+			rightPnum+=1;
 		}
 		
 		//Conversion Buttons
@@ -484,15 +501,15 @@ class cFrame extends JFrame implements ActionListener {
 		System.out.println("Evaluation so far" + iPanel.getInputButton().getText()+iPanel.getAnswerButton().getText());
 		
 	}
+	ScriptEngineManager manager = new ScriptEngineManager();
+	ScriptEngine engine = manager.getEngineByName("js");
 	public int parseString(String input) {
 		System.out.print("Inside Parse String");
-		input.replace('x', '*');
-		input.trim();
-		ScriptEngineManager manager = new ScriptEngineManager();
-		ScriptEngine engine = manager.getEngineByName("js");
+		String temp = input.replace('x', '*');
+		temp = temp.trim();
 		Object result = "";
 		try {
-			result = engine.eval(input);
+			result = engine.eval(temp);
 		} catch (ScriptException e) {
 			e.printStackTrace();
 		}
@@ -580,6 +597,7 @@ class cFrame extends JFrame implements ActionListener {
 		datatype = type;
 	}
 	public void calculate(String func, int base) {
+		
 		int temp2 = 0;
 		if(func == "add") {
 			if (!iPanel.getAnswerButton().getText().equals(""))
@@ -670,6 +688,7 @@ class cFrame extends JFrame implements ActionListener {
 	
 	public void calcEquals(String type)
 	{
+		//Add, subtract, multiply or divide in every different number format, depending on the current format active
 		int temp2 = 0;
 		if(type == "HEX") {
 			if (function.equals("add"))
@@ -980,6 +999,7 @@ class buttonPanel extends JPanel{
 	
 }
 class numPanel extends JPanel{
+	//Functions to manipulate the format buttons
 	public JButton hexButton, decButton, octButton, binButton;
 	public JLabel hexValue, decValue, octValue, binValue;
 	
@@ -1070,7 +1090,7 @@ class numPanel extends JPanel{
 class inputPanel extends JPanel{
 	public JLabel inputLabel;
 	public JLabel ansLabel;
-	
+
  	public inputPanel() {
 		//Input label for the raw input
 		inputLabel = new JLabel("  ", SwingConstants.RIGHT);
